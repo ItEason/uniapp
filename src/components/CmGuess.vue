@@ -1,25 +1,3 @@
-<script setup lang="ts">
-import { getHomeGoodsGuessLikeAPI } from '@/services/home'
-import type { likeItem } from '@/types/home'
-import { onMounted, ref } from 'vue'
-
-const goodsLikeList = ref<likeItem[]>([])
-
-const getHomeGoodsGuessLikeData = async () => {
-  const res = await getHomeGoodsGuessLikeAPI()
-  goodsLikeList.value = res.result.items
-}
-
-onMounted(() => {
-  getHomeGoodsGuessLikeData()
-})
-
-const props = defineProps<{
-  page: { type: number; default: 1 }
-  pageSize: { type: number; default: 10 }
-}>()
-</script>
-
 <template>
   <!-- 猜你喜欢 -->
   <view class="caption">
@@ -40,8 +18,44 @@ const props = defineProps<{
       </view>
     </navigator>
   </view>
-  <view class="loading-text"> 正在加载... </view>
+  <view class="loading-text">{{ end ? '没有更多了' : '正在加载...' }}</view>
 </template>
+
+<script setup lang="ts">
+import { getHomeGoodsGuessLikeAPI } from '@/services/home'
+import type { likeItem } from '@/types/home'
+import { onMounted, ref, watch } from 'vue'
+
+const goodsLikeList = ref<likeItem[]>([])
+const end = ref<boolean>(false)
+const props = withDefaults(defineProps<{ page: number; pageSize: number }>(), {
+  page: 1,
+  pageSize: 10,
+})
+
+const getHomeGoodsGuessLikeData = async (isShow: boolean = false) => {
+  if (end.value) {
+    return
+  }
+
+  const res = await getHomeGoodsGuessLikeAPI({ page: props.page, pageSize: props.pageSize }, isShow)
+  goodsLikeList.value = [...goodsLikeList.value, ...res.result.items]
+  if (props.page >= res.result.pages) {
+    end.value = true
+  }
+}
+
+onMounted(() => {
+  getHomeGoodsGuessLikeData()
+})
+
+watch(
+  () => props.page,
+  () => {
+    getHomeGoodsGuessLikeData(true)
+  },
+)
+</script>
 
 <style lang="scss">
 :host {

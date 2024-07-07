@@ -1,6 +1,6 @@
 import { request } from '@/utils/http'
 import type { banner, category, hot, likeItem } from '@/types/home'
-import type { PageResult } from '@/types/global.d'
+import type { PageResult, PageParams } from '@/types/global.d'
 
 /**
  * 获取首页-广告区域
@@ -41,13 +41,13 @@ export const getHomeHotAPI = () => {
  * 首页-猜你喜欢
  * @returns  promise<hot[]>
  */
-export const getHomeGoodsGuessLikeAPI = (page: number = 1, pageSize: number = 10) => {
-  return request<PageResult<likeItem>>({
-    url: '/home/goods/guessLike',
-    method: 'GET',
-    data: {
-      page,
-      pageSize,
+export const getHomeGoodsGuessLikeAPI = (data?: PageParams, isShowMadal?: boolean) => {
+  return request<PageResult<likeItem>>(
+    {
+      url: '/home/goods/guessLike',
+      method: 'GET',
+      data,
     },
-  })
+    isShowMadal,
+  )
 }
