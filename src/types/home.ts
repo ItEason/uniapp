@@ -1,4 +1,5 @@
-import type { PageResult } from './global.d'
+import { extend } from '@dcloudio/uni-app'
+import type { PageResult, GoodsItem } from './global.d'
 
 interface common {
   /** id */
@@ -48,17 +49,7 @@ export interface hot extends common {
  * 首页-猜你喜欢
  */
 
-export interface likeItem {
-  // id
-  id: string
-  // 商品名称
-  name: string
-  // 商品描述
-  desc: string
-  // 商品价格
-  price: number
-  // 商品图片
-  picture: string
+export interface likeItem extends GoodsItem {
   // 商品折扣
   discount: number
   // 商品已下单数量
