@@ -6,36 +6,18 @@
     </view>
     <!-- 推荐选项 -->
     <view class="tabs">
-      <text
-        v-for="(item, index) in subTypes"
-        :key="item.id"
-        class="text"
-        :class="{ active: curSubTypeIndex === index }"
-        @tap.prevent="changeSubTypeIndex(index)"
-      >
+      <text v-for="(item, index) in subTypes" :key="item.id" class="text" :class="{ active: curSubTypeIndex === index }"
+        @tap.prevent="changeSubTypeIndex(index)">
         {{ item.title }}
       </text>
     </view>
     <!-- 推荐列表 -->
-    <scroll-view
-      scroll-y
-      class="scroll-view"
-      :scroll-top="scrollTop"
-      @scroll="scrolling"
-      :refresher-triggered="isTriggered"
-      @refresherrefresh="onRefresherrefresh"
-      lower-threshold="70"
-      refresher-enabled
-      @scrolltolower="onScrolltolower"
-    >
+    <scroll-view scroll-y class="scroll-view" :scroll-top="scrollTop" @scroll="scrolling"
+      :refresher-triggered="isTriggered" @refresherrefresh="onRefresherrefresh" lower-threshold="70" refresher-enabled
+      @scrolltolower="onScrolltolower">
       <view class="goods">
-        <navigator
-          hover-class="none"
-          class="navigator"
-          v-for="goods in curGoodsData"
-          :key="goods.id"
-          :url="`/pages/goods/goods?id=${goods.id}`"
-        >
+        <navigator hover-class="none" class="navigator" v-for="goods in curGoodsData" :key="goods.id"
+          :url="`/pages/goodsDetail/goodsDetail?id=${goods.id}`">
           <image class="thumb" :src="goods.picture"></image>
           <view class="name ellipsis">{{ goods.name }}</view>
           <view class="price">
@@ -91,8 +73,8 @@ const isEnd = ref<boolean>(false)
  *  调用接口并默认选择第一个subType下的数据
  * @param url
  */
-const getHostData = async (url: string, params?: hotParams) => {
-  isTriggered.value = true
+const getHostData = async (url: string, params?: hotParams, isFirst: boolean = true) => {
+  if (!isFirst) isTriggered.value = true
   const res = await getHotDataAPI(url, params)
   hotData.value = res.result
   subTypes.value = hotData.value.subTypes
@@ -133,7 +115,7 @@ const onRefresherrefresh = () => {
   })
   params.value = { subType: '', pageSize: 10, page: 1 }
   // 发起对应请求
-  getHostData(curHot.value!.url, params.value)
+  getHostData(curHot.value!.url, params.value, false)
 }
 
 /**

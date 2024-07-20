@@ -60,7 +60,7 @@ interface Data<T> {
   result: T
 }
 
-export const request = <T>(options: UniApp.RequestOptions, isShowToast: boolean = false) => {
+export const request = <T>(options: UniApp.RequestOptions, isShowToast: boolean = false, duration: number = 1500) => {
   // 1. 返回promise对象
   return new Promise<Data<T>>((resolve, reject) => {
     if (isShowToast) {
@@ -68,7 +68,7 @@ export const request = <T>(options: UniApp.RequestOptions, isShowToast: boolean 
         icon: 'loading',
         mask: true,
         title: '数据加载中',
-        duration: 1500,
+        duration
       })
     }
     uni.request({

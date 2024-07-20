@@ -41,7 +41,7 @@ export const getHomeHotAPI = () => {
  * 首页-猜你喜欢
  * @returns  promise<hot[]>
  */
-export const getHomeGoodsGuessLikeAPI = (data?: PageParams, isShowMadal?: boolean) => {
+export const getHomeGoodsGuessLikeAPI = (data?: PageParams, isShowMadal?: boolean, duration?: number) => {
   return request<PageResult<likeItem>>(
     {
       url: '/home/goods/guessLike',
@@ -49,5 +49,6 @@ export const getHomeGoodsGuessLikeAPI = (data?: PageParams, isShowMadal?: boolea
       data,
     },
     isShowMadal,
+    duration
   )
 }

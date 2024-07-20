@@ -33,7 +33,7 @@ export interface GoodsItem {
   /** 商品价格 */
   price: number
   /** 商品折扣 */
-  discount?: null
+  discount?: number
   /** 数量 */
   orderNum?: number
 }

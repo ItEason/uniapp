@@ -11,13 +11,8 @@
     <view class="categories" v-else>
       <!-- 左侧：一级分类 -->
       <scroll-view class="primary" scroll-y="true">
-        <view
-          v-for="(item, index) in categoryData"
-          :key="item.id"
-          class="item"
-          :class="{ active: index === activeIndex }"
-          @tap.prevent="changeIndex(index)"
-        >
+        <view v-for="(item, index) in categoryData" :key="item.id" class="item"
+          :class="{ active: index === activeIndex }" @tap.prevent="changeIndex(index)">
           <text class="name"> {{ item.name }} </text>
         </view>
       </scroll-view>
@@ -32,14 +27,8 @@
             <navigator class="more" hover-class="none">全部</navigator>
           </view>
           <view class="section">
-            <navigator
-              open-type="navigate"
-              v-for="goods in item.goods"
-              :key="goods.id"
-              class="goods"
-              hover-class="none"
-              :url="`/pages/goods/goods?id=${goods.id}`"
-            >
+            <navigator open-type="navigate" v-for="goods in item.goods" :key="goods.id" class="goods" hover-class="none"
+              :url="`/pages/goodsDetail/goodsDetail?id=${goods.id}`">
               <image lazy-load class="image" :src="goods.picture"> </image>
               <view class="name ellipsis">{{ goods.name }}</view>
               <view class="price">

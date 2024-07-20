@@ -4,12 +4,8 @@
     <text class="text">猜你喜欢</text>
   </view>
   <view class="guess">
-    <navigator
-      class="guess-item"
-      v-for="item in goodsLikeList"
-      :key="item.id"
-      :url="`/pages/goods/goods?id=4007498`"
-    >
+    <navigator class="guess-item" v-for="item in goodsLikeList" :key="item.id"
+      :url="`/pages/goodsDetail/goodsDetail?id=4007498`">
       <image class="image" mode="aspectFill" :src="item.picture"></image>
       <view class="name"> {{ item.name }} </view>
       <view class="price">
@@ -33,12 +29,12 @@ const props = withDefaults(defineProps<{ page: number; pageSize: number }>(), {
   pageSize: 10,
 })
 
-const getHomeGoodsGuessLikeData = async (isShow: boolean = false) => {
+const getHomeGoodsGuessLikeData = async (isShow: boolean = false, duration: number = 1500) => {
   if (end.value) {
     return
   }
 
-  const res = await getHomeGoodsGuessLikeAPI({ page: props.page, pageSize: props.pageSize }, isShow)
+  const res = await getHomeGoodsGuessLikeAPI({ page: props.page, pageSize: props.pageSize }, isShow, duration)
   goodsLikeList.value = [...goodsLikeList.value, ...res.result.items]
   if (props.page >= res.result.pages) {
     end.value = true
@@ -52,7 +48,7 @@ onMounted(() => {
 watch(
   () => props.page,
   () => {
-    getHomeGoodsGuessLikeData(true)
+    getHomeGoodsGuessLikeData(true, 3000)
   },
 )
 </script>
