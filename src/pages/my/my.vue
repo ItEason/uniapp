@@ -4,26 +4,25 @@
     <view class="profile" :style="{ paddingTop: safeAreaInsets!.top + 'px' }">
       <!-- 情况1：已登录 -->
       <view class="overview" v-if="isLogin">
-        <navigator url="/pagesMember/profile/profile" hover-class="none">
-          <image class="avatar" mode="aspectFill"
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/avatar_3.jpg"></image>
+        <navigator open-type="navigate" url="/subPackage/pages/profile/profile" hover-class="none">
+          <image class="avatar" mode="aspectFill" :src="memberStore.profile?.avatar"></image>
         </navigator>
         <view class="meta">
-          <view class="nickname"> {{ memberStore.profile?.nickName || memberStore.profile?.account }} </view>
-          <navigator class="extra" url="/pagesMember/profile/profile" hover-class="none">
+          <view class="nickname"> {{ memberStore.profile?.nickname || memberStore.profile?.account }} </view>
+          <navigator class="extra" open-type="navigate" url="/subPackage/pages/profile/profile" hover-class="none">
             <text class="update">更新头像昵称</text>
           </navigator>
         </view>
       </view>
       <!-- 情况2：未登录 -->
       <view class="overview" v-else>
-        <navigator url="/subPackage/pages/login/login" hover-class="none">
+        <navigator open-type="navigate" url="/subPackage/pages/login/login" hover-class="none">
           <image class="avatar gray" mode="aspectFill"
             src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-04-06/db628d42-88a7-46e7-abb8-659448c33081.png">
           </image>
         </navigator>
         <view class="meta">
-          <navigator url="/subPackage/pages/login/login" hover-class="none" class="nickname">
+          <navigator open-type="navigate" url="/subPackage/pages/login/login" hover-class="none" class="nickname">
             未登录
           </navigator>
           <view class="extra">
@@ -31,7 +30,7 @@
           </view>
         </view>
       </view>
-      <navigator class="settings" url="/subPackage/pages/settings/settings" hover-class="none">
+      <navigator open-type="navigate" class="settings" url="/subPackage/pages/settings/settings" hover-class="none">
         设置
       </navigator>
     </view>
@@ -39,13 +38,13 @@
     <view class="orders">
       <view class="title">
         我的订单
-        <navigator class="navigator" url="/subPackage/pages/list/list?type=0" hover-class="none">
+        <navigator open-type="navigate" class="navigator" url="/subPackage/pages/list/list?type=0" hover-class="none">
           查看全部订单<text class="icon-right"></text>
         </navigator>
       </view>
       <view class="section">
         <!-- 订单 -->
-        <navigator v-for="item in orderTypes" :key="item.type" :class="item.icon"
+        <navigator open-type="navigate" v-for="item in orderTypes" :key="item.type" :class="item.icon"
           :url="`/pagesOrder/list/list?type=${item.type}`" class="navigator" hover-class="none">
           {{ item.text }}
         </navigator>

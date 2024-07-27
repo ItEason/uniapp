@@ -37,3 +37,13 @@ export interface GoodsItem {
   /** 数量 */
   orderNum?: number
 }
+
+/** 通用地址类型 */
+export interface addressCode {
+  // 省份编码
+  provinceCode: string | null
+  // 城市编码
+  cityCode: string | null
+  //区 / 县编码
+  countyCode: string | null
+}

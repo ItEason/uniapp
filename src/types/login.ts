@@ -6,7 +6,7 @@ export interface loginResult {
   // 用于后续接口调用的token，有效期三天
   token: string
   // 用户昵称
-  nickName: string
+  nickname: string
   // 用户头像
   avatar: string
   // 用户名
